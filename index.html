@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <style>
+
+.biography {
+ font-size: 20px;
+ }
+hr {
+ border: 3px solid rgb(191, 191, 191); /* You can adjust the thickness by changing the pixel value */
+ }
+ section {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ padding: 40px;
+}
+
+section img {
+ margin-right: 20px;
+ width: 50%;
+ height: 25%;
+}
+
+section p {
+ max-width: 600px;
+ line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+ section {
+ flex-direction: column;
+ text-align: center;
+ }
+
+ section img {
+ margin-right: 0;
+ margin-bottom: 20px;
+ }
+}
+
+ body {
+ font-family: Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+ background-color: #f4f4f4;
+ }
+
+ h1 {
+ text-align: center;
+ padding: 20px 0;
+ }
+
+ .gallery {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ }
+
+ .gallery img {
+ width: 300px;
+ height: 200px;
+ object-fit: cover;
+ margin: 10px;
+ border: 1px solid #ddd;
+ border-radius: 8px;
+ transition: transform 0.3s;
+ cursor: pointer;
+ }
+
+ .gallery img:hover {
+ transform: scale(1.1);
+ }
+.container {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ }
+ 
+ img {
+ max-width: 70%;
+ max-height:70%;
+ float: left;
+ }
+ 
+ .text {
+ font-size: 20px;
+ padding-left: 0px;
+ padding-top: 0%;
+ float: right;
+ }
+
+ body, html {
+ margin: 0;
+ padding: 0;
+ overflow-x: hidden; /* Disable horizontal scrolling */
+}
+
+ #quote-container {
+ text-align: center;
+ padding: 20px;
+ background-color: #fff;
+ opacity: 0;
+ transition: opacity 0.8s ease;
+ }
+ .quote-dot {
+ display: inline-block;
+ width: 10px;
+ height: 10px;
+ background-color: #888;
+ margin: 0 5px;
+ border-radius: 50%;
+ cursor: pointer;
+ }
+
+ .active-dot {
+ background-color: #000; /* Change color for the active dot */
+ }
+ body {
+ font-family: 'Allura', cursive, Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+ background: url('image (19) (1).png') center center fixed;
+ background-size: cover;
+ transition: backdrop-filter 0s ease; /* Add transition for smooth backdrop-filter change */
+ }
+
+ .blur {
+ backdrop-filter: blur(5px); /* Initial blur effect */
+ }
+
+ .white-block {
+
+ background-color: white;
+ width: 100%; /* Change width to 100% */
+ height:100%;
+ margin: 0 -9999rem;
+ /* add back negative margin value */
+ padding: 0.25rem 9999rem;
+ margin-top:-20px;
+ justify-content: center;
+ text-align: center;
+}
+ .text-container {
+ margin-bottom: 80px; /* Adjust the value to set the desired space */
+ }
+
+ .text-container2 {
+ margin-bottom: 350px; /* Adjust the value to set the desired space */
+ }
+ .tabs-bar {
+ position:relative;
+ z-index: 10;
+ display: flex;
+ justify-content: center;
+ background-color: #fff;
+ overflow: hidden;
+ box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+ .tab-button {
+ position: relative;
+ float: left;
+ cursor: pointer;
+ padding: 14px 16px;
+ color: #333;
+ font-size: 16px;
+ background-color: #fff;
+ border: none;
+ outline: none;
+ transition: color 0.3s;
+ }
+
+ .tab-button:hover {
+ color: #acacac;
+ }
+
+ .tab-button::after {
+ content: "";
+ display: block;
+ position: absolute;
+ left: 50%;
+ width: 0;
+ height: 3px;
+ background-color: #888;
+ transition: all 0.3s ease-in-out;
+ bottom: 15px; /* Adjust this value to move the line up */
+ }
+
+ .tab-button.active-tab {
+ color: #555;
+ 
+ }
+
+ .tab-button.active-tab::after {
+ width: 100%;
+ left: 0;
+ background-color: #555;
+ bottom: 15px; /* Adjust this value to move the line up */
+ }
+
+ .tab {
+ display: none;
+ padding: 20px;
+ text-align: center;
+ }
+
+ .active-tab {
+ display: block;
+ }
+ </style>
+ <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+ var quotes = [
+ { text: "Herman has an impressive artistic spirit and a strong ability to communicate in performance", author: "William Fong" },
+ { text: "One of the most interesting pianists of his generation", author: "Florian Mitrea" },
+ { text: "Herman's playing is unique and inspiring", author: "Edward Tait" },
+ ];
+
+ var quoteIndex = 0;
+ var quoteContainer = document.getElementById('quote-container');
+ var quoteDotsContainer = document.getElementById('quote-dots');
+
+ function changeQuote() {
+ quoteContainer.style.opacity = 0;
+
+ setTimeout(function () {
+ quoteIndex = (quoteIndex + 1) % quotes.length;
+ var currentQuote = quotes[quoteIndex];
+
+ // Customize font, color, and style here
+ quoteContainer.innerHTML = `<p style="font-family: 'Your Desired Font', sans-serif; font-size: 30px; color: #000;">"${currentQuote.text}"</p><p style="font-size: 16px; color: #888;">- ${currentQuote.author}</p>`;
+ quoteContainer.style.opacity = 1;
+
+ updateQuoteDots();
+ }, 600); // Adjust the duration of the transition
+ }
+
+ // Initial quote
+ updateQuoteDots(); // Call this before changeQuote
+ changeQuote();
+
+ // Change quote every 5 seconds (adjust as needed)
+ setInterval(changeQuote, 6000);
+
+ function updateQuoteDots() {
+ quoteDotsContainer.innerHTML = '';
+
+ for (var i = 0; i < quotes.length; i++) {
+ var dot = document.createElement('div');
+ dot.classList.add('quote-dot');
+ if (i === quoteIndex) {
+ dot.classList.add('active-dot');
+ }
+
+ dot.setAttribute('data-index', i);
+ dot.addEventListener('click', function () {
+ quoteIndex = parseInt(this.getAttribute('data-index'), 10);
+ changeQuote();
+ });
+
+ quoteDotsContainer.appendChild(dot);
+ }
+ }
+});
+
+
+
+ document.addEventListener("DOMContentLoaded", function () {
+ var body = document.body;
+
+ window.addEventListener("scroll", function () {
+ var scrollPosition = window.scrollY;
+ var blurValue = Math.min(scrollPosition / 50, 10); // Adjust the divisor for the blur effect intensity
+
+ // Set backdrop-filter based on scroll position
+ body.style.backdropFilter = `blur(${blurValue}px)`;
+ });
+ });
+
+ function openTab(tabName) {
+ var i, tabs;
+ tabs = document.getElementsByClassName("tab");
+ for (i = 0; i < tabs.length; i++) {
+ tabs[i].style.display = "none";
+ }
+ document.getElementById(tabName).style.display = "block";
+ 
+ var buttons = document.getElementsByClassName("tab-button");
+ for (i = 0; i < buttons.length; i++) {
+ buttons[i].classList.remove("active-tab");
+ }
+ document.getElementById(tabName + "-button").classList.add("active-tab");
+ }
+ </script>
+ </head>
+<body>
+
+ <div class="tabs-bar">
+
+ 
+
+ <span class="tab-button"onclick="openTab('tab1')" id="tab0-button"></button>
+ Herman Cerisha<br>
+ <div style="text-align: center;">
+ <span style="font-size: smaller; font-family: 'Arial', sans-serif;">Pianist</span>
+ </div>
+ 
+ </span>
+ <button class="tab-button active-tab" onclick="openTab('tab1')" id="tab1-button">Home</button>
+ <button class="tab-button" onclick="openTab('tab2')" id="tab2-button">About</button>
+ <button class="tab-button" onclick="openTab('tab3')" id="tab3-button">Concerts</button>
+ <button class="tab-button" onclick="openTab('tab4')" id="tab4-button">Contact</button>
+ </div>
+ 
+ <div id="tab1" class="tab active-tab">
+
+ <div class="text-container"></div>
+ 
+ <h1 style="color: #ffffff;font-family: 'Allura', cursive, Arial, sans-serif;">Herman Cerisha</h1>
+
+ <p style="color: #ffffff;">Pianist</p>
+ <div class="text-container2"></div>
+
+
+ 
+ <div class="white-block">
+ <div id="quote-container"></div>
+ <div id="quote-dots"></div>
+ <hr>
+ <div class="text-container"></div>
+ <div class="container">
+ <div class="image">
+ <img src="63883ab7-ef56-4578-9708-479be6ed0436 (1).jpg">
+ </div>
+
+ <div class="text-container"></div>
+
+ <button class="tab-button" onclick="openTabAndScrollToTop('tab3')" id="tab3-button" style="font-size: 30px; font-family: 'Open Sans', sans-serif; font-weight: bold;">Up-and-Coming Concerts ></button>
+
+ <script>
+ function openTabAndScrollToTop(tabId) {
+ openTab(tabId); // Call the openTab function with the specified tabId
+ window.scrollTo(0, 0); // Scrolls to the top of the page
+ }
+ </script>
+ 
+ 
+
+
+
+ </div>
+ <div class="text-container"></div>
+ <hr>
+ <p style="font-size: 25px;">Photo Gallery:</p>
+
+ <div class="gallery">
+ <img src="63883ab7-ef56-4578-9708-479be6ed0436 (1).jpg" alt="Image 1">
+ <img src="685be2b1-e768-4688-8892-c71d6f0178f9 (1).JPG" alt="Image 2">
+ <img src="7d7c3897-3268-4477-a06b-b0857e6361f2.JPG" alt="Image 3">
+ <img src="IMG_5827.jpg" alt="Image 4">
+ <img src="af8fac85-274c-4f64-9c61-a5d2a154d2c8 (1).JPG" alt="Image 5">
+ <!-- Add more images as needed -->
+ </div>
+ <br><hr><p style="font-size: 20px; text-align: center;">Copyright © <b>2024</b><br>Developed by <a style="text-decoration: none;" href="https://www.instagram.com/eypwebsites/"><b>EYP Websites</b></a></p><hr><br>
+ </div>
+
+ 
+ </div>
+ 
+ <div id="tab2" class="tab">
+ <div class="white-block">
+
+ 
+ <body>
+ <div class="gallery">
+ <img src="IMG_5849.jpg" alt="Image 2">
+ <br><p class="biography">18-year-old Herman Med Cerisha was born in Putignano (Bari), Italy, and has been studying piano since the age of 6. In 2020, he won a scholarship to study at The Purcell School, where he is currently in Upper Sixth Form, studying piano with Professor Florian Mitrea. In 2021, he was named the Bechstein scholar student of the year. 
+ </p>
+ <br><p class="biography">As an 8-year-old, Herman was admitted to the top piano class at the National College of Music George Enescu in Bucharest, Romania, after obtaining full marks in the entrance exam. During his time here, he underwent rigorous training with Elisa Barzescu and had an education that was rooted in the Eastern European musical tradition.
+
+ </p>
+
+ <br><p class="biography">Herman has won over 50 international competitions over the years, including “Chopin” competition junior; “Berman” competition; Orbetello competition. Following his win in the “Pianisti i Ri” competition in Kosovo in 2019, he was featured as a guest soloist in a performance with the Philarmonic of Priština, Kosovo, performing the Grieg piano concerto.
+
+
+ </p>
+
+ <br><p class="biography">
+ In addition to this, Herman has been invited to perform in many prestigious venues, such as the National Romanian Athenaeum in Bucharest, the Wigmore Hall in London and the Svetlanov concert hall in Moscow. He has regularly collaborated with the orchestra at the Arad Philharmonic, Romania, from 2018–2022, as a featured soloist. 
+
+ </p>
+
+ <br><p class="biography">
+ Herman has had numerous masterclasses with pianists from all over the world, such as Boris Petrushansky, Dmitri Alexeev, Noriko Ogawa. He also had the honour of working with Leonid Margarius, Franco Scala and Jin Ju at the Imola Piano Academy.
+
+ </p>
+ <br><p class="biography">
+ This year, Herman received numerous offers and scholarships from the top conservatoires, including the Guildhall School of Music and Drama and the Royal College of Music. After much consideration, he accepted his offer from the Royal Academy of Music and is excited to begin his studies in September 2024, with a full scholarship.
+
+
+ </p>
+ <br><p class="biography">
+ he underwent rigorous training with Elisa Barzescu and had an education that was rooted in the Eastern European musical traditionfocusing on developing a healthy instrumental technique, understanding the relationship between gesture and sound quality, and gaining thorough analytical and aural skills.
+ </p>
+
+ 
+
+ </body>
+ 
+ </div>
+ <br><hr><p style="font-size: 20px; text-align: center;">Copyright © <b>2024</b><br>Developed by <a style="text-decoration: none;" href="https://www.instagram.com/eypwebsites/"><b>EYP Websites</b></a></p><hr><br>
+ </div>
+ 
+ </div>
+ 
+ 
+ <div id="tab3" class="tab">
+ <div class="white-block">
+
+
+ <p class="biography"><b>Concerts</b></p>
+ <p>Concerto Competition - Beethoven Piano
+ Concerto No. 3 in C Minor Op. 37 &nbsp; | &nbsp; 11th March 7pm, Constance Pilkington Hall, The Purcell
+ School (UK)</p>
+ <p><a href="index.html">Click here to find out more ></a></p>
+
+ <p>Recital at the Theatre from Constanta,
+ Romania. &nbsp; | &nbsp; (Spring 2024)*</p>
+ <p><a href="index.html">Click here to find out more ></a></p>
+
+
+ 
+
+ <br><hr><p style="font-size: 20px; text-align: center;">Copyright © <b>2024</b><br>Developed by <a style="text-decoration: none;" href="https://www.instagram.com/eypwebsites/"><b>EYP Websites</b></a></p><hr><br>
+ </div>
+ </div>
+ 
+ <div id="tab4" class="tab">
+ <div class="white-block">
+ 
+
+ 
+ <p class="biography"><b>Contact</b></p>
+ <br><a style="text-decoration: none;" href="mailto:hermed.pianista@gmail.com"><b>hermed.pianista@gmail.com</b></a><br><a style="text-decoration: none;" href="tel:03714498812"><b>03714 498812</b></a><br><a style="text-decoration: none;" href="https://www.facebook.com/herman.med/">or message me on <b>Facebook</b></a></p>
+ <br><hr><p style="font-size: 20px; text-align: center;">Copyright © <b>2024</b><br>Developed by <a style="text-decoration: none;" href="https://www.instagram.com/eypwebsites/"><b>EYP Websites</b></a></p><hr><br>
+ </div>
+ </div>
+ 
+ </body>
+ </html>
